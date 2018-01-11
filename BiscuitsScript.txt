@@ -1,0 +1,36 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+public class BiscuitsScript : MonoBehaviour
+{
+    // ship speed to appear as vector in unity
+    public Vector2 speed = new Vector2(50, 50);
+
+    // movement and component store only to be accessed by this script
+    private Vector2 movement;
+    private Rigidbody2D rigidbodyComponent;
+
+    void Update()
+    {
+        // find axis
+        float inputX = Input.GetAxis("Horizontal");
+        float inputY = Input.GetAxis("Vertical");
+
+        // direction movement
+        movement = new Vector2(
+          speed.x * inputX,
+          speed.y * inputY);
+
+    }
+
+    void FixedUpdate()
+    {
+        // store component reference
+        if (rigidbodyComponent == null) rigidbodyComponent = GetComponent<Rigidbody2D>();
+
+        // move Biscuits
+        rigidbodyComponent.velocity = movement;
+    }
+}
